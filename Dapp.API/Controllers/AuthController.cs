@@ -1,3 +1,4 @@
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -44,6 +45,8 @@ namespace Dapp.API.Controllers
     [HttpPost("login")]
     public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
     {
+      //throw new Exception("computer says no!");
+
       var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
       if (userFromRepo == null)
@@ -74,6 +77,7 @@ namespace Dapp.API.Controllers
       {
         token = tokenHandler.WriteToken(token)
       });
+
     }
   }
 }
