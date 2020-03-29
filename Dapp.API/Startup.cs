@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dapp.API.Data;
 using Dapp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,9 +37,16 @@ namespace Dapp.API
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-      services.AddControllers();
+      services.AddControllers().AddNewtonsoftJson(opt =>
+      {
+        opt.SerializerSettings.ReferenceLoopHandling =
+        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+      });
+
       services.AddCors();
+      services.AddAutoMapper(typeof(AppRepository).Assembly);
       services.AddScoped<IAuthRepository, AuthRepository>();
+      services.AddScoped<IAppRepository, AppRepository>();
 
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
