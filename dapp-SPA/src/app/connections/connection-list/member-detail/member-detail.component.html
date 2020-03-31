@@ -1,5 +1,8 @@
 <div class="container mt-4">
   <div class="row">
+    <h1>{{ user.knowAs }}'s Profile</h1>
+  </div>
+  <div class="row">
     <div class="col-sm-4">
       <div class="card">
         <img src="{{ user?.photoUrl }}" alt="user?.knowAs" class="card-img-top img-thumbnail">
@@ -43,7 +46,8 @@
             <p>{{ user.interests }}</p>
           </tab>
           <tab heading="Photos">
-            <p>Photos will go here...</p>
+            <p-galleria [images]="galleryImages" panelWidth="500" panelHeight="500" frameWidth="100" frameHeight="100"
+              [showCaption]="false"></p-galleria>
           </tab>
           <tab heading="Messages">
             <p>Messages will go here</p>

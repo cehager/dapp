@@ -1,4 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
@@ -22,6 +23,10 @@ import { MemberCardComponent } from "./connections/connection-list/member-card/m
 import { MemberDetailComponent } from "./connections/connection-list/member-detail/member-detail.component";
 import { MemberDetailResolver } from "./_resolvers/member-detail.resolver";
 import { MemberListResolver } from "./_resolvers/member-list.resolver";
+import { GalleriaModule } from "primeng/galleria";
+import { MemberEditComponent } from "./connections/connection-list/member-edit/member-edit.component";
+import { MemberEditResolver } from "./_resolvers/member-edit.resolver";
+import { PreventUnsavedChanges } from "./_guards/prevent-unsaved-changes.guard";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -38,10 +43,12 @@ export function tokenGetter() {
     MyListsComponent,
     MessagesComponent,
     MemberCardComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     BsDropdownModule.forRoot(),
@@ -53,13 +60,16 @@ export function tokenGetter() {
         whitelistedDomains: ["localhost:5000"],
         blacklistedRoutes: ["localhost:5000/api/auth"]
       }
-    })
+    }),
+    GalleriaModule
   ],
   providers: [
     AuthService,
     ErrorInterceptorProvider,
     MemberDetailResolver,
-    MemberListResolver
+    MemberListResolver,
+    MemberEditResolver,
+    PreventUnsavedChanges
   ],
   bootstrap: [AppComponent]
 })

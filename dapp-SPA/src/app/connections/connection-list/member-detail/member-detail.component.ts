@@ -11,6 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class MemberDetailComponent implements OnInit {
   user: User;
+  galleryImages: any[];
 
   constructor(
     private userService: UserService,
@@ -22,18 +23,21 @@ export class MemberDetailComponent implements OnInit {
     // this.loadUser();
     this.route.data.subscribe(data => {
       this.user = data["user"];
+      // this.galleryImages = this.getImages();
     });
+
+    this.galleryImages = this.getImages();
   }
 
   // this.galleryImages = this.getImages();
   getImages() {
     const imageUrls = [];
     for (const photo of this.user.photos) {
+      console.log("In getImages " + this.user);
       imageUrls.push({
-        small: photo.url,
-        medium: photo.url,
-        big: photo.url,
-        description: photo.description
+        source: photo.url,
+        alt: photo.url,
+        title: photo.description
       });
     }
 
