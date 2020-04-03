@@ -32,6 +32,7 @@ export class MemberEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data["user"];
+      // console.log("member edit user", this.user);
     });
   }
 
@@ -48,5 +49,10 @@ export class MemberEditComponent implements OnInit {
           this.alertify.error(error);
         }
       );
+  }
+
+  updateMainPhoto(photoUrl) {
+    this.user.photoUrl = photoUrl;
+    this.authService.changeMemberPhoto(photoUrl);
   }
 }

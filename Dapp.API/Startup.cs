@@ -44,6 +44,7 @@ namespace Dapp.API
       });
 
       services.AddCors();
+      services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
       services.AddAutoMapper(typeof(AppRepository).Assembly);
       services.AddScoped<IAuthRepository, AuthRepository>();
       services.AddScoped<IAppRepository, AppRepository>();

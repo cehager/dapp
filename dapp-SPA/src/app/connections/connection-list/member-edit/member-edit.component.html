@@ -56,8 +56,13 @@
               </div>
             </form>
           </tab>
-          <tab heading="Photos">
-            <p>Photos will go here....</p>
+          <tab heading="Edit Photos">
+            <!-- <p>Photos should go here....</p> -->
+            <app-photo-editor [photos]="user.photos" (getMemberPhotoChange)="updateMainPhoto($event)">
+            </app-photo-editor>
+            <!-- <img
+              src="http://res.cloudinary.com/dbarmor-net/image/upload/v1585784085/ehqiz0neguwz9rkimioj.jpg" -->
+            <!-- class="img-thumbnail p-1" alt=""> -->
           </tab>
         </tabset>
       </div>
