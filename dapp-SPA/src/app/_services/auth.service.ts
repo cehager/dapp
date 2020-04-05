@@ -7,7 +7,7 @@ import { environment } from "src/environments/environment";
 import { User } from "../_models/User";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class AuthService {
   baseUrl = environment.apiUrl + "auth/"; // "http://localhost:5000/api/auth/";
@@ -39,8 +39,8 @@ export class AuthService {
     );
   }
 
-  register(model: any) {
-    return this.http.post(this.baseUrl + "register", model);
+  register(user: User) {
+    return this.http.post(this.baseUrl + "register", user);
   }
 
   loggedIn() {

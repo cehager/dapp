@@ -1,27 +1,97 @@
-<form #registerForm="ngForm" (ngSubmit)='register()'>
+<form [formGroup]="registerForm" (ngSubmit)="register()">
   <h2 class="text-center text-primary">Sign Up</h2>
-  <hr>
-
+  <hr />
+  <!-- male/female -->
   <div class="form-group">
-    <input type="text" class="form-control" required name="username" [(ngModel)]="model.username"
-      placeholder="Username">
+    <label class="control-label" style="margin-right: 10px;">I am a: </label>
+    <p-radioButton class="mr-3" name="fbgroup" value="male" label="Male" formControlName="gender"></p-radioButton>
+    <p-radioButton name="fbgroup" value="female" label="Female" formControlName="gender"></p-radioButton>
   </div>
 
-  <!-- <div class="form-group">
-    <label for="favouriteValue">What is your favorite value?</label>
-    <select class="form-control" id=favouriteValue>
-      <option *ngFor="let value of valuesFromHome" [value]="value">{{value.name}}</option>
-    </select>
-  </div> -->
-
+  <!-- username -->
   <div class="form-group">
-    <input type="password" class="form-control" required name="password" [(ngModel)]="model.password"
-      placeholder="Password">
+    <input pInputText type="text" class="form-control" formControlName="username" placeholder="User Name" />
+    <p-message severity="error" [text]="registerForm.controls['username'].errors['required']
+          ? 'Name is required' : ''"
+      *ngIf="!registerForm.controls['username'].valid && registerForm.controls['username'].touched">
+    </p-message>
   </div>
 
+  <!-- knownAs -->
+  <div class="form-group">
+    <input pInputText type="text" class="form-control" formControlName="knowAs" placeholder="Enter a known as ." />
+    <p-message severity="error" [text]="
+      registerForm.controls['knowAs'].errors['required'] ? 'Please enter a known as name.' : ''"
+      *ngIf="!registerForm.controls['knowAs'].valid && registerForm.controls['knowAs'].touched">
+    </p-message>
+  </div>
+
+  <!-- dateOfBirth -->
+  <div class="form-group">
+    <p-calendar formControlName="dateOfBirth" dateFormat="mm/dd/yy" [showIcon]="true" showButtonBar="true"
+      [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" [touchUI]="false"
+      placeholder="Date of birth">
+    </p-calendar>
+    <p-message severity="error" [text]="
+      registerForm.controls['dateOfBirth'].errors['required'] ? 'Date of birth is required.' : ''"
+      *ngIf="!registerForm.controls['dateOfBirth'].valid && registerForm.controls['knowAs'].touched">
+    </p-message>
+  </div>
+
+  <!-- city -->
+  <div class="form-group">
+    <input pInputText type="text" class="form-control" formControlName="city" placeholder="City" />
+    <p-message severity="error" [text]="
+      registerForm.controls['city'].errors['required'] ? 'Please enter your city.' : ''"
+      *ngIf="!registerForm.controls['city'].valid && registerForm.controls['city'].touched">
+    </p-message>
+  </div>
+
+  <!-- country -->
+  <div class="form-group">
+    <input pInputText type="text" class="form-control" formControlName="country" placeholder="Country" />
+    <p-message severity="error" [text]="
+      registerForm.controls['country'].errors['required'] ? 'Please enter your country.' : ''"
+      *ngIf="!registerForm.controls['country'].valid && registerForm.controls['country'].touched">
+    </p-message>
+  </div>
+
+  <!-- password -->
+  <div class="form-group">
+    <input type="password" class="form-control" pInputText formControlName="password" placeholder="Password" />
+    <p-message severity="error" [text]="
+        registerForm.controls['password'].errors['required']
+          ? 'Password is required'
+          : registerForm.controls['password'].errors['minlength']
+          ? 'Must be at least 4 characters in lenth.'
+          : registerForm.controls['password'].errors['maxlength']
+          ? 'Must be 16 characters or less in length.'
+          : ''
+      " *ngIf="
+        !registerForm.controls['password'].valid &&
+        registerForm.controls['password'].touched
+      "></p-message>
+  </div>
+
+  <!-- confirmPassword -->
+  <div class="form-group">
+    <input type="password" [ngClass]="{
+        'is-invalid':
+          registerForm.get('confirmPassword').touched &&
+          registerForm.hasError('mismatch')
+      }" class="form-control" pInputText formControlName="confirmPassword" placeholder="Confirm Password" />
+    <p-message severity="error" [text]=" registerForm.hasError('mismatch')
+          ? 'Passwords donot match...try again.'
+          : 'Passwords match'"
+      *ngIf="registerForm.controls['confirmPassword'].touched && registerForm.hasError('mismatch')">
+    </p-message>
+  </div>
+
+  <!-- buttons -->
   <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Register</button>
-    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+    <button class="btn btn-success mr-2" [disabled]="!registerForm.valid" type="submit">Register</button>
+    <button class="btn btn-secondary" type="button" (click)="cancel()">
+      Cancel
+    </button>
   </div>
-
 </form>

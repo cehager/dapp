@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { JwtModule } from "@auth0/angular-jwt";
 
@@ -29,6 +29,13 @@ import { MemberEditResolver } from "./_resolvers/member-edit.resolver";
 import { PreventUnsavedChanges } from "./_guards/prevent-unsaved-changes.guard";
 import { PhotoEditorComponent } from "./connections/connection-list/photo-editor/photo-editor.component";
 import { FileUploadModule } from "ng2-file-upload";
+import { PanelModule } from "primeng/panel";
+import { InputTextModule } from "primeng/inputtext";
+import { MessagesModule } from "primeng/messages";
+import { MessageModule } from "primeng/message";
+import { MessageService } from "primeng/api";
+import { RadioButtonModule } from "primeng/radiobutton";
+import { CalendarModule } from "primeng/calendar";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -47,13 +54,14 @@ export function tokenGetter() {
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
@@ -61,11 +69,17 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: ["localhost:5000"],
-        blacklistedRoutes: ["localhost:5000/api/auth"]
-      }
+        blacklistedRoutes: ["localhost:5000/api/auth"],
+      },
     }),
     GalleriaModule,
-    FileUploadModule
+    FileUploadModule,
+    PanelModule,
+    InputTextModule,
+    MessagesModule,
+    MessageModule,
+    RadioButtonModule,
+    CalendarModule,
   ],
   providers: [
     AuthService,
@@ -73,8 +87,9 @@ export function tokenGetter() {
     MemberDetailResolver,
     MemberListResolver,
     MemberEditResolver,
-    PreventUnsavedChanges
+    PreventUnsavedChanges,
+    MessageService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -11,7 +11,7 @@ import { AlertifyService } from "src/app/_services/alertify.service";
 @Component({
   selector: "app-photo-editor",
   templateUrl: "./photo-editor.component.html",
-  styleUrls: ["./photo-editor.component.css"]
+  styleUrls: ["./photo-editor.component.css"],
 })
 export class PhotoEditorComponent implements OnInit {
   // @Input() photos: Photo[];
@@ -51,10 +51,10 @@ export class PhotoEditorComponent implements OnInit {
       allowedFileType: ["image"],
       removeAfterUpload: true,
       autoUpload: false,
-      maxFileSize: 5 * 1024 * 1024
+      maxFileSize: 5 * 1024 * 1024,
     });
 
-    this.uploader.onAfterAddingFile = file => {
+    this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
     };
 
@@ -66,9 +66,17 @@ export class PhotoEditorComponent implements OnInit {
           url: res.url,
           dataAdded: res.dataAdded,
           description: res.description,
-          isMain: res.isMain
+          isMain: res.isMain,
         };
         this.photos.push(photo);
+        if (photo.isMain) {
+          this.authService.changeMemberPhoto(photo.url);
+          this.authService.currentUser.photoUrl = photo.url;
+          localStorage.setItem(
+            "user",
+            JSON.stringify(this.authService.currentUser)
+          );
+        }
       }
     };
   }
@@ -78,18 +86,19 @@ export class PhotoEditorComponent implements OnInit {
       .setMainPhoto(this.authService.decodedToken.nameid, photo.id)
       .subscribe(
         () => {
-          this.currentMain = this.photos.filter(p => p.isMain === true)[0];
+          this.currentMain = this.photos.filter((p) => p.isMain === true)[0];
           this.currentMain.isMain = false;
           photo.isMain = true;
 
-          this.getMemberPhotoChange.emit(photo.url);
+          this.authService.changeMemberPhoto(photo.url);
+          //this.getMemberPhotoChange.emit(photo.url);
           this.authService.currentUser.photoUrl = photo.url;
           localStorage.setItem(
             "user",
             JSON.stringify(this.authService.currentUser)
           );
         },
-        error => {
+        (error) => {
           this.alertify.error(error);
         }
       );
@@ -102,12 +111,12 @@ export class PhotoEditorComponent implements OnInit {
         .subscribe(
           () => {
             this.photos.splice(
-              this.photos.findIndex(p => p.id === id),
+              this.photos.findIndex((p) => p.id === id),
               1
             );
             this.alertify.success("Photo has been deleted.");
           },
-          error => {
+          (error) => {
             this.alertify.error("Failed to delete the photo.");
           }
         );
