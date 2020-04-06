@@ -36,6 +36,7 @@ import { MessageModule } from "primeng/message";
 import { MessageService } from "primeng/api";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { CalendarModule } from "primeng/calendar";
+import { TimeagoModule } from "ngx-timeago";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -80,6 +81,7 @@ export function tokenGetter() {
     MessageModule,
     RadioButtonModule,
     CalendarModule,
+    TimeagoModule.forRoot(),
   ],
   providers: [
     AuthService,

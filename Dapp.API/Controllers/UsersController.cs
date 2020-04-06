@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dapp.API.Controllers
 {
+  [ServiceFilter(typeof(Helpers.LogUserActivity))]
   [Authorize]
   [Route("api/[controller]")]
   [ApiController]

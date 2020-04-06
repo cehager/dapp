@@ -48,6 +48,7 @@ namespace Dapp.API
       services.AddAutoMapper(typeof(AppRepository).Assembly);
       services.AddScoped<IAuthRepository, AuthRepository>();
       services.AddScoped<IAppRepository, AppRepository>();
+      services.AddScoped<LogUserActivity>();
 
       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
