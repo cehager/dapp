@@ -28,6 +28,7 @@ import { MemberListResolver } from "./_resolvers/member-list.resolver";
 import { GalleriaModule } from "primeng/galleria";
 import { MemberEditComponent } from "./connections/connection-list/member-edit/member-edit.component";
 import { MemberEditResolver } from "./_resolvers/member-edit.resolver";
+import { ListsResolver } from "./_resolvers/lists.resolver";
 import { PreventUnsavedChanges } from "./_guards/prevent-unsaved-changes.guard";
 import { PhotoEditorComponent } from "./connections/connection-list/photo-editor/photo-editor.component";
 import { FileUploadModule } from "ng2-file-upload";
@@ -93,6 +94,7 @@ export function tokenGetter() {
     MemberDetailResolver,
     MemberListResolver,
     MemberEditResolver,
+    ListsResolver,
     PreventUnsavedChanges,
     MessageService,
   ],
