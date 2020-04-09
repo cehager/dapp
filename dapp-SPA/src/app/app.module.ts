@@ -23,8 +23,11 @@ import { MessagesComponent } from "./messages/messages.component";
 import { appRoutes } from "./routes";
 import { MemberCardComponent } from "./connections/connection-list/member-card/member-card.component";
 import { MemberDetailComponent } from "./connections/connection-list/member-detail/member-detail.component";
+import { MemberMessagesComponent } from "./connections/connection-list/member-messages/member-messages.component";
 import { MemberDetailResolver } from "./_resolvers/member-detail.resolver";
 import { MemberListResolver } from "./_resolvers/member-list.resolver";
+import { MessagesResolver } from "./_resolvers/messages.resolver";
+
 import { GalleriaModule } from "primeng/galleria";
 import { MemberEditComponent } from "./connections/connection-list/member-edit/member-edit.component";
 import { MemberEditResolver } from "./_resolvers/member-edit.resolver";
@@ -58,6 +61,7 @@ export function tokenGetter() {
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
+    MemberMessagesComponent,
     PhotoEditorComponent,
   ],
   imports: [
@@ -97,6 +101,7 @@ export function tokenGetter() {
     ListsResolver,
     PreventUnsavedChanges,
     MessageService,
+    MessagesResolver,
   ],
   bootstrap: [AppComponent],
 })
